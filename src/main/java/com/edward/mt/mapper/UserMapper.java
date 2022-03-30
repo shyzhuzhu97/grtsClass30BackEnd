@@ -11,4 +11,6 @@ public interface UserMapper {
     User checkData(@Param("type") int type, @Param("checkData") String checkData);
 
     int addUser(User user);
+
+    int activeUser(int id);
 }

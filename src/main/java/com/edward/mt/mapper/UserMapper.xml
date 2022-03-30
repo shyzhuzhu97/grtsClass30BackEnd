@@ -16,8 +16,15 @@
             </if>
         </where>
     </select>
-    <insert id="addUser">
+    <insert id="addUser" parameterType="com.edward.mt.bean.User">
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            SELECT last_insert_id();
+        </selectKey>
         INSERT INTO users(user_name, pass_word, avatar, created, updated, status, email)
         VALUE (#{userName},#{passWord},#{avatar},#{created},#{updated},#{status},#{email})
     </insert>
+    
+    <update id="activeUser" parameterType="int">
+        UPDATE users SET status = 1 WHERE id = #{id}
+    </update>
 </mapper>

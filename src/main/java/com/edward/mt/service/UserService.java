@@ -2,6 +2,7 @@ package com.edward.mt.service;
 
 import com.edward.mt.bean.User;
 import com.edward.mt.vo.MtResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -14,4 +15,8 @@ public interface UserService {
     boolean checkData(int type, String checkData);
 
     void addUser(User user);
+
+    MtResult uploadAvatar(MultipartFile file);
+
+    void activeUser(int id);
 }
