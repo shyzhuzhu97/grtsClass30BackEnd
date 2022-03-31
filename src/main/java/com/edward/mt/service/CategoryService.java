@@ -7,4 +7,5 @@ public interface CategoryService {
 
     MtResult showCategoryByPage(int currentPage);
 
+    MtResult deleteCategoryById(int id);
 }

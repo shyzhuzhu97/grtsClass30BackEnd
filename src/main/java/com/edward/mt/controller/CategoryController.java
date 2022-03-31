@@ -23,4 +23,10 @@ public class CategoryController {
         return mtResult;
     }
 
+    @RequestMapping("/deleteCategoryById/{id}")
+    public MtResult deleteCategoryById(@PathVariable int id){
+        MtResult mtResult = categoryService.deleteCategoryById(id);
+        return mtResult;
+    }
+
 }

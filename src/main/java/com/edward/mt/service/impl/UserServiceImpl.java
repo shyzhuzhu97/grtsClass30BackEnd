@@ -123,4 +123,25 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Override
+    public MtResult getInfo(int id) {
+        User user = userMapper.getInfo(id);
+        user.setPassWord(null);
+        return MtResult.ok().data("info",user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        //生成MD5加密密码
+        String encrypt = MD5utils.encrypt(user.getPassWord());
+        user.setPassWord(encrypt);
+        //补充数据
+        Date date = new Date();
+        user.setUpdated(date);
+        int count = userMapper.updateUser(user);
+        if(count<=0) {
+            throw new MtException("修改失败，请重试");
+        }
+    }
 }

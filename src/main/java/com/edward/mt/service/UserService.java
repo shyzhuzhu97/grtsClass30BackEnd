@@ -19,4 +19,8 @@ public interface UserService {
     MtResult uploadAvatar(MultipartFile file);
 
     void activeUser(int id);
+
+    MtResult getInfo(int id);
+
+    void updateUser(User user);
 }

@@ -11,4 +11,6 @@ public interface CategoryMapper {
     List<DishCategory> showDishCategoryByPage(int startIndex);
 
     int categoryNum();
+
+    int deleteCategoryById(int id);
 }

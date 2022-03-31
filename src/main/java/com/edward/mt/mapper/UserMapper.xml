@@ -27,4 +27,10 @@
     <update id="activeUser" parameterType="int">
         UPDATE users SET status = 1 WHERE id = #{id}
     </update>
+    <select id="getInfo" parameterType="int" resultType="com.edward.mt.bean.User">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+    <update id="updateUser" parameterType="com.edward.mt.bean.User">
+        UPDATE users SET pass_word=#{passWord},email=#{email},updated=#{updated},avatar=#{avatar},nick_name=#{nickName} where id = #{id}
+    </update>
 </mapper>

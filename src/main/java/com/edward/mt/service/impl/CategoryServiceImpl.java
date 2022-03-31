@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public MtResult showCategoryByPage(int currentPage) {
-        int startIndex = (currentPage - 1) * 10;
+        int startIndex = (currentPage - 1) * 6;
         List<DishCategory> dishCategories = categoryMapper.showDishCategoryByPage(startIndex);
         int categoryNum = categoryMapper.categoryNum();
         if(dishCategories == null){
@@ -25,5 +25,14 @@ public class CategoryServiceImpl implements CategoryService {
 
         }
         return MtResult.ok().data("categoryNum",categoryNum).data("dishCategories",dishCategories);
+    }
+
+    @Override
+    public MtResult deleteCategoryById(int id) {
+        int count = categoryMapper.deleteCategoryById(id);
+        if(count<=0){
+            throw new MtException("删除失败请重试");
+        }
+        return MtResult.ok();
     }
 }

@@ -48,12 +48,26 @@ public class UserController {
         userService.addUser(user);
         return MtResult.ok();
     }
+    //修改用户信息
+    @PostMapping("/updateUser")
+    public MtResult updateUser(@RequestBody User user){
+        userService.updateUser(user);
+        return MtResult.ok();
+    }
+
 
     //激活账号
     @RequestMapping("/activeUser/{id}")
-    public MtResult activeUser(@PathVariable int id){
+    public MtResult activeUser(@PathVariable Integer id){
         userService.activeUser(id);
         return MtResult.ok();
+    }
+
+    //修改用户信息前回显用户信息
+    @PostMapping("/getInfo/{id}")
+    public MtResult getInfo(@PathVariable Integer id){
+        MtResult mtResult = userService.getInfo(id);
+        return mtResult;
     }
 
 }
