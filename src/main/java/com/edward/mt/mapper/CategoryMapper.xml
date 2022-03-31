@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edward.mt.mapper.CategoryMapper">
+    <select id="showDishCategoryByPage" parameterType="int" resultType="com.edward.mt.bean.DishCategory">
+        SELECT * FROM dish_category WHERE STATUS = 1 limit #{startIndex} , 10
+    </select>
+    <select id="categoryNum" resultType="int">
+        SELECT COUNT(*) FROM dish_category where `STATUS` = 1
+    </select>
+</mapper>
