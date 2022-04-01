@@ -1,12 +1,10 @@
 package com.edward.mt.controller;
 
+import com.edward.mt.bean.DishCategory;
 import com.edward.mt.service.CategoryService;
 import com.edward.mt.vo.MtResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController //ResponseBody+Controller
 @CrossOrigin
@@ -28,5 +26,23 @@ public class CategoryController {
         MtResult mtResult = categoryService.deleteCategoryById(id);
         return mtResult;
     }
+
+    @RequestMapping("/addCategory")
+    public MtResult addCategory(@RequestBody DishCategory category){
+        MtResult mtResult = categoryService.addCategory(category);
+        return mtResult;
+    }
+
+    @RequestMapping("/findCategoryById/{id}")
+    public MtResult findCategoryById(@PathVariable int id){
+        MtResult mtResult = categoryService.findCategoryById(id);
+        return mtResult;
+    }
+    @RequestMapping("/updateCategory")
+    public MtResult updateCategory(@RequestBody DishCategory category){
+        MtResult mtResult = categoryService.updateCategory(category);
+        return mtResult;
+    }
+
 
 }

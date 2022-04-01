@@ -13,4 +13,10 @@ public interface CategoryMapper {
     int categoryNum();
 
     int deleteCategoryById(int id);
+
+    int addCategory(DishCategory category);
+
+    DishCategory findCategoryById(int id);
+
+    int updateCategory(DishCategory category);
 }

@@ -10,4 +10,13 @@
     <update id="deleteCategoryById" parameterType="int" >
         UPDATE dish_category SET STATUS = 0 WHERE id = #{id}
     </update>
+    <insert id="addCategory" parameterType="com.edward.mt.bean.DishCategory">
+        INSERT INTO `mt`.`dish_category` (`dish_category_name`, `dish_category_des`, `created`, `updated`, `STATUS`) VALUES (#{dishCategoryName},#{dishCategoryDes},#{created},#{updated},#{status});
+    </insert>
+    <select id="findCategoryById" parameterType="int" resultType="com.edward.mt.bean.DishCategory">
+        SELECT * FROM dish_category WHERE id=#{id}
+    </select>
+    <update id="updateCategory" parameterType="com.edward.mt.bean.DishCategory">
+        UPDATE dish_category SET dish_category_name=#{dishCategoryName},dish_category_des=#{dishCategoryDes},updated=#{updated} where id = #{id}
+    </update>
 </mapper>
