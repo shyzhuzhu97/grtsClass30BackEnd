@@ -19,4 +19,12 @@
     <update id="updateCategory" parameterType="com.edward.mt.bean.DishCategory">
         UPDATE dish_category SET dish_category_name=#{dishCategoryName},dish_category_des=#{dishCategoryDes},updated=#{updated} where id = #{id}
     </update>
+    <update id="deleteIds">
+        UPDATE dish_category SET STATUS = 0
+        <where>
+            <foreach collection="ids" item="id" open="id in (" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </update>
 </mapper>

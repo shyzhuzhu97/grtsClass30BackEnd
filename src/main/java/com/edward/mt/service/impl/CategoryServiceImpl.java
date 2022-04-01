@@ -70,4 +70,17 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return MtResult.ok().data("count",count);
     }
+
+    @Override
+    public MtResult deleteIds(List<Integer> ids) {
+        if(ids.size()==0){
+            throw new MtException("未选择删除对象");
+        }
+        int count = categoryMapper.deleteIds(ids);
+        if (count <=0){
+            throw new MtException("删除失败，请重试");
+
+        }
+        return MtResult.ok().data("count",count);
+    }
 }

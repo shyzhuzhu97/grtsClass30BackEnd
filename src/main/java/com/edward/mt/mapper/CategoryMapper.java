@@ -2,6 +2,7 @@ package com.edward.mt.mapper;
 
 import com.edward.mt.bean.DishCategory;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface CategoryMapper {
     DishCategory findCategoryById(int id);
 
     int updateCategory(DishCategory category);
+
+    int deleteIds(@Param("ids") List<Integer> ids);
 }

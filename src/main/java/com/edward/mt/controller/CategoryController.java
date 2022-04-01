@@ -6,6 +6,8 @@ import com.edward.mt.vo.MtResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController //ResponseBody+Controller
 @CrossOrigin
 @RequestMapping("/category")
@@ -42,6 +44,12 @@ public class CategoryController {
     public MtResult updateCategory(@RequestBody DishCategory category){
         MtResult mtResult = categoryService.updateCategory(category);
         return mtResult;
+    }
+
+    @RequestMapping("/deleteIds")
+    public MtResult deleteIds(@RequestBody List<Integer> ids){
+        MtResult result = categoryService.deleteIds(ids);
+        return result;
     }
 
 
