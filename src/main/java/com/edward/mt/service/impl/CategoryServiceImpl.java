@@ -27,6 +27,15 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return MtResult.ok().data("categoryNum",categoryNum).data("dishCategories",dishCategories);
     }
+    @Override
+    public MtResult showCategoryAll() {
+        List<DishCategory> dishCategories = categoryMapper.showCategoryAll();
+        if(dishCategories == null){
+            throw new MtException("查询失败，请刷新");
+
+        }
+        return MtResult.ok().data("categories",dishCategories);
+    }
 
     @Override
     public MtResult deleteCategoryById(int id) {
@@ -83,4 +92,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return MtResult.ok().data("count",count);
     }
+
+
 }

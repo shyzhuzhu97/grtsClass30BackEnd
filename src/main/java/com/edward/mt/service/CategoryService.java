@@ -19,4 +19,6 @@ public interface CategoryService {
     MtResult updateCategory(DishCategory category);
 
     MtResult deleteIds(List<Integer> ids);
+
+    MtResult showCategoryAll();
 }

@@ -22,6 +22,11 @@ public class CategoryController {
         MtResult mtResult = categoryService.showCategoryByPage(val);
         return mtResult;
     }
+    @RequestMapping("/showCategoryAll")
+    public MtResult showCategoryAll(){
+        MtResult mtResult = categoryService.showCategoryAll();
+        return mtResult;
+    }
 
     @RequestMapping("/deleteCategoryById/{id}")
     public MtResult deleteCategoryById(@PathVariable int id){

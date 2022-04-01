@@ -27,4 +27,7 @@
             </foreach>
         </where>
     </update>
+    <select id="showCategoryAll" resultType="com.edward.mt.bean.DishCategory">
+        SELECT * FROM dish_category WHERE STATUS = 1
+    </select>
 </mapper>
