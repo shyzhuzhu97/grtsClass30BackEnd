@@ -1,21 +1,29 @@
 package com.edward.mt.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.edward.mt.bean.Dish;
+import com.edward.mt.service.DishService;
+import com.edward.mt.vo.MtResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController //ResponseBody+Controller
 @CrossOrigin
 @RequestMapping("/dish")
 public class DishController {
-//    @Autowired
-//    private DishService dishService;
+    @Autowired
+    private DishService dishService;
 
-//    @RequestMapping("/showDishAll")
-//    public MtResult showDishAll(){
-//        MtResult mtResult = categoryService.showCategoryByPage(val);
-//        return mtResult;
-//    }
+    @RequestMapping("/addDish")
+    public MtResult addDish(@RequestBody Dish dish){
+        MtResult mtResult = dishService.addDish(dish);
+        return mtResult;
+    }
+
+    @RequestMapping("/showDishByPage/{val}")
+    public MtResult showDishByPage(@PathVariable int val){
+        MtResult mtResult = dishService.showDishByPage(val);
+        return mtResult;
+    }
 
 
 }

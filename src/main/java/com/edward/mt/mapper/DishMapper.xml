@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edward.mt.mapper.DishMapper">
+    <!--<resultMap id="addDish" type="com.edward.mt.bean.Dish">-->
+        <!--<result column="dish_name" property="dishName"></result>-->
+        <!--<result column="dish_des" property="dishDes"></result>-->
+        <!--<result column="dish_img" property="dishImg"></result>-->
+        <!--<result column="price" property="price"></result>-->
+        <!--<result column="created" property="created"></result>-->
+        <!--<result column="updated" property="updated"></result>-->
+        <!--<result column="STATUS" property="status"></result>-->
+        <!--<association property="category" javaType="com.edward.mt.bean.DishCategory">-->
+            <!--<id column="id" property="id"></id>-->
+        <!--</association>-->
+    <!--</resultMap>-->
+
+    <insert id="addDish" parameterType="com.edward.mt.bean.Dish">
+        INSERT INTO dish(dish_name, dish_des, dish_img, price, created, updated, STATUS, parent_id)
+        VALUE (#{dishName},#{dishDes},#{dishImg},#{price},#{created},#{updated},#{status},#{category.id})
+    </insert>
+
+    <select id="showDishByPage" parameterType="int" resultType="com.edward.mt.bean.Dish">
+        SELECT * FROM dish WHERE STATUS = 1 limit #{startIndex} , 6
+    </select>
+    <select id="dishNum" resultType="int">
+        SELECT COUNT(*) FROM dish where `STATUS` = 1
+    </select>
+</mapper>

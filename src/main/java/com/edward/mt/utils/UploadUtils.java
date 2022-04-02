@@ -16,11 +16,25 @@ public class UploadUtils {
         return dateFolderName;
     }
 
+    public static String getDishImgFolder() {
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String dateFolderName ="dishImg"+format.format(date);//得到文件夹名称
+        return dateFolderName;
+    }
+
     public static File getDateFolderRoot() { //类不自动加public 要手动加
         File folderPath = new File(MtConstant.IMGPATH); //根据图片服务器路径创建file对象
         String dateFolder = UploadUtils.getDateFolder();
         return new File(folderPath, dateFolder); //传入图片服务器路径、文件夹名称创建file对象
     }
+
+    public static File getDishImgFolderRoot() { //类不自动加public 要手动加
+        File folderPath = new File(MtConstant.IMGPATH); //根据图片服务器路径创建file对象
+        String dateFolder = UploadUtils.getDishImgFolder();
+        return new File(folderPath, dateFolder); //传入图片服务器路径、文件夹名称创建file对象
+    }
+
 
     public static String getImgName(String originName) {
         String halfName = originName.substring(originName.lastIndexOf("."));//得到后缀名
