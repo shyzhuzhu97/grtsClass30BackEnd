@@ -11,6 +11,16 @@ public class Dish {
     private Date updated;
     private String dishImg;
     private int status;
+    private int buyCount;
+
+    public int getBuyCount() {
+        return buyCount;
+    }
+
+    public void setBuyCount(int buyCount) {
+        this.buyCount = buyCount;
+    }
+
     private DishCategory category;
     public int getId() {
         return id;
@@ -81,7 +91,7 @@ public class Dish {
                 ", updated=" + updated +
                 ", dishImg='" + dishImg + '\'' +
                 ", status=" + status +
-                ", category=" + category +
+                ", buyCount=" + buyCount +
                 '}';
     }
 }

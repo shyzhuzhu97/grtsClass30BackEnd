@@ -13,4 +13,6 @@ public interface DishMapper {
     List<Dish> showDishByPage(int startIndex);
 
     int dishNum();
+
+    int deleteDishById(int deleteId);
 }

@@ -7,4 +7,6 @@ public interface DishService {
     MtResult addDish(Dish dish);
 
     MtResult showDishByPage(int val);
+
+    MtResult deleteDishById(int deleteId);
 }

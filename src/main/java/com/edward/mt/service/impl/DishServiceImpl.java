@@ -33,7 +33,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public MtResult showDishByPage(int currentPage) {
-        int startIndex = (currentPage - 1) * 6;
+        int startIndex = (currentPage - 1) * 5;
         List<Dish> dishs = dishMapper.showDishByPage(startIndex);
         int dishNum = dishMapper.dishNum();
         if (dishs == null) {
@@ -41,5 +41,14 @@ public class DishServiceImpl implements DishService {
 
         }
         return MtResult.ok().data("dishNum", dishNum).data("dishs", dishs);
+    }
+
+    @Override
+    public MtResult deleteDishById(int deleteId) {
+        int count = dishMapper.deleteDishById(deleteId);
+        if(count<=0){
+            throw new MtException("删除失败请重试");
+        }
+        return MtResult.ok();
     }
 }
