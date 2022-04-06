@@ -6,6 +6,8 @@ import com.edward.mt.vo.MtResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController //ResponseBody+Controller
 @CrossOrigin
 @RequestMapping("/dish")
@@ -28,10 +30,29 @@ public class DishController {
     }
 
     @RequestMapping("/showDishByPage/{val}")
-    public MtResult showDishByPage(@PathVariable int val){
-        MtResult mtResult = dishService.showDishByPage(val);
-        System.out.println(mtResult);
+    public MtResult showDishByPage(@PathVariable int val, @RequestBody Dish dish){
+        MtResult mtResult = dishService.showDishByPage(val,dish);
+
         return mtResult;
+    }
+
+    @RequestMapping("/findDishById/{id}")
+    public MtResult findDishById(@PathVariable int id){
+        MtResult mtResult = dishService.findDishById(id);
+
+        return mtResult;
+    }
+
+    @RequestMapping("/updateDish")
+    public MtResult updateDish(@RequestBody Dish dish){
+        MtResult mtResult = dishService.updateDish(dish);
+
+        return mtResult;
+    }
+    @RequestMapping("/deleteIds")
+    public MtResult deleteIds(@RequestBody List<Integer> ids){
+        MtResult result = dishService.deleteIds(ids);
+        return result;
     }
 
 

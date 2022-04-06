@@ -32,10 +32,10 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public MtResult showDishByPage(int currentPage) {
+    public MtResult showDishByPage(int currentPage,Dish dish) {
         int startIndex = (currentPage - 1) * 5;
-        List<Dish> dishs = dishMapper.showDishByPage(startIndex);
-        int dishNum = dishMapper.dishNum();
+        List<Dish> dishs = dishMapper.showDishByPage(startIndex,dish);
+        int dishNum = dishMapper.dishNum(dish);
         if (dishs == null) {
             throw new MtException("查询失败，请刷新");
 
@@ -50,5 +50,38 @@ public class DishServiceImpl implements DishService {
             throw new MtException("删除失败请重试");
         }
         return MtResult.ok();
+    }
+
+    @Override
+    public MtResult findDishById(int id) {
+        Dish dish = dishMapper.findDishById(id);
+        if (dish == null) {
+            throw new MtException("查询失败，请刷新");
+
+        }
+        return MtResult.ok().data("dish", dish);
+    }
+
+    @Override
+    public MtResult updateDish(Dish dish) {
+        dish.setUpdated(new Date());
+        int count = dishMapper.updateDish(dish);
+        if (count <=0){
+            throw new MtException("修改失败，请重试");
+
+        }
+        return MtResult.ok().data("count",count);
+    }
+    @Override
+    public MtResult deleteIds(List<Integer> ids) {
+        if(ids.size()==0){
+            throw new MtException("未选择删除对象");
+        }
+        int count = dishMapper.deleteIds(ids);
+        if (count <=0){
+            throw new MtException("删除失败，请重试");
+
+        }
+        return MtResult.ok().data("count",count);
     }
 }

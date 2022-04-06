@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.edward.mt.mapper.DishMapper">
+    <sql id="conditionDish">
+
+    </sql>
     <resultMap id="showDishAndCategory" type="com.edward.mt.bean.Dish">
         <id property="id" column="id"/>
         <result column="dish_name" property="dishName"></result>
@@ -15,7 +18,7 @@
             <result column="dish_category_name" property="dishCategoryName"></result>
         </association>
     </resultMap>
-    <select id="showDishByPage" parameterType="int" resultMap="showDishAndCategory">
+    <select id="showDishByPage" resultMap="showDishAndCategory">
         SELECT
             a.id,
             a.dish_name,
@@ -29,14 +32,47 @@
         FROM
             dish a
         LEFT JOIN dish_category b ON a.parent_id = b.id
-        WHERE
-            a. STATUS = 1
-        AND b. STATUS = 1
+        <where>
+            <if test="dish.dishName!=null and dish.dishName!=''">
+                dish_name like "%${dish.dishName}%"
+            </if>
+            <if test="dish.category.id!=null and dish.category.id!=0">
+                AND parent_id = #{dish.category.id}
+            </if>
+            <if test="dish.price!=null and dish.price!=''">
+                AND price = #{dish.price}
+            </if>
+            <if test="dish.created!=null">
+                AND a.created &gt; #{dish.created}
+            </if>
+            <if test="dish.updated!=null">
+                AND a.updated &lt; #{dish.updated}
+            </if>
+        </where>
+            AND a.STATUS = 1
         LIMIT #{startIndex},
          5
     </select>
     <select id="dishNum" resultType="int">
-        SELECT COUNT(*) FROM dish where `STATUS` = 1
+        SELECT COUNT(*) FROM dish
+        <where>
+            <if test="dish.dishName!=null and dish.dishName!=''">
+                dish_name like "%${dish.dishName}%"
+            </if>
+            <if test="dish.category.id!=null and dish.category.id!=0">
+                AND parent_id = #{dish.category.id}
+            </if>
+            <if test="dish.price!=null and dish.price!=''">
+                AND price = #{dish.price}
+            </if>
+            <if test="dish.created!=null">
+                AND created &gt; #{dish.created}
+            </if>
+            <if test="dish.updated!=null">
+                AND updated &lt; #{dish.updated}
+            </if>
+            AND STATUS = 1
+        </where>
     </select>
 
     <insert id="addDish" parameterType="com.edward.mt.bean.Dish">
@@ -45,5 +81,48 @@
     </insert>
     <update id="deleteDishById" parameterType="int" >
         UPDATE dish SET STATUS = 0 WHERE id = #{deleteId}
+    </update>
+    <resultMap id="findDishAndCategoryById" type="com.edward.mt.bean.Dish">
+        <id property="id" column="id"/>
+        <result column="dish_name" property="dishName"></result>
+        <result column="dish_des" property="dishDes"></result>
+        <result column="dish_img" property="dishImg"></result>
+        <result column="price" property="price"></result>
+        <result column="created" property="created"></result>
+        <result column="updated" property="updated"></result>
+        <result column="buy_count" property="buyCount"></result>
+        <association property="category" javaType="com.edward.mt.bean.DishCategory">
+            <id column="categoryId" property="id"></id>
+            <result column="dish_category_name" property="dishCategoryName"></result>
+        </association>
+    </resultMap>
+    <select id="findDishById" parameterType="int" resultMap="findDishAndCategoryById">
+        SELECT
+        a.id,
+        a.dish_name,
+        a.dish_des,
+        a.created,
+        a.updated,
+        a.price,
+        a.buy_count,
+        a.dish_img,
+        b.id categoryId,
+        b.dish_category_name
+        FROM
+        dish a
+        LEFT JOIN dish_category b ON a.parent_id = b.id
+        WHERE
+        a.id=#{id}
+    </select>
+    <update id="updateDish" parameterType="com.edward.mt.bean.Dish">
+        UPDATE dish SET dish_name=#{dishName},dish_des=#{dishDes},updated=#{updated},dish_img=#{dishImg},parent_id=#{category.id},price=#{price} where id = #{id}
+    </update>
+    <update id="deleteIds">
+        UPDATE dish SET STATUS = 0
+        <where>
+            <foreach collection="ids" item="id" open="id in (" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
     </update>
 </mapper>
