@@ -30,4 +30,7 @@
     <select id="showCategoryAll" resultType="com.edward.mt.bean.DishCategory">
         SELECT * FROM dish_category WHERE STATUS = 1
     </select>
+    <select id="showCategoryNameAll" resultType="string">
+        SELECT dish_category_name FROM dish_category WHERE STATUS = 1
+    </select>
 </mapper>

@@ -57,5 +57,11 @@ public class CategoryController {
         return result;
     }
 
+    @RequestMapping("/dishNumByCategory")
+    public MtResult dishNumByCategory(){
+        MtResult result = categoryService.dishNumByCategory();
+        return result;
+    }
+
 
 }

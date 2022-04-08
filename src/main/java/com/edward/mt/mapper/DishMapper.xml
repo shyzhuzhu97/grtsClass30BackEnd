@@ -48,8 +48,9 @@
             <if test="dish.updated!=null">
                 AND a.updated &lt; #{dish.updated}
             </if>
+            AND a.STATUS = 1 AND b.STATUS = 1
         </where>
-            AND a.STATUS = 1
+
         LIMIT #{startIndex},
          5
     </select>
@@ -81,6 +82,9 @@
     </insert>
     <update id="deleteDishById" parameterType="int" >
         UPDATE dish SET STATUS = 0 WHERE id = #{deleteId}
+    </update>
+    <update id="deleteDishByParentId" parameterType="int" >
+        UPDATE dish SET STATUS = 0 WHERE parent_id = #{id}
     </update>
     <resultMap id="findDishAndCategoryById" type="com.edward.mt.bean.Dish">
         <id property="id" column="id"/>
@@ -125,4 +129,21 @@
             </foreach>
         </where>
     </update>
+    <update id="deleteParentIds">
+        UPDATE dish SET STATUS = 0
+        <where>
+            <foreach collection="ids" item="id" open="parent_id in (" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+    <select id="showDishAll" resultType="com.edward.mt.bean.Dish">
+        SELECT * FROM dish WHERE STATUS = 1
+    </select>
+    <select id="getPrices" resultType="int">
+        SELECT price from dish WHERE STATUS = 1
+    </select>
+    <select id="getParentId" resultType="int">
+        SELECT parent_id from dish WHERE STATUS = 1
+    </select>
 </mapper>

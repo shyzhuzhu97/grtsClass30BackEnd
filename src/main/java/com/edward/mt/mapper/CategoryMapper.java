@@ -24,4 +24,6 @@ public interface CategoryMapper {
     int deleteIds(@Param("ids") List<Integer> ids);
 
     List<DishCategory> showCategoryAll();
+
+    List<String> showCategoryNameAll();
 }

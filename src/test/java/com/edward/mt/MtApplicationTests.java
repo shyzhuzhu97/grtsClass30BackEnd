@@ -1,7 +1,10 @@
 package com.edward.mt;
 
 import com.edward.mt.bean.User;
+import com.edward.mt.service.CategoryService;
+import com.edward.mt.service.DishService;
 import com.edward.mt.service.UserService;
+import com.edward.mt.vo.MtResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +16,11 @@ class MtApplicationTests {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private DishService dishService;
+@Autowired
+	private CategoryService categoryService;
 
 	@Test
 	void jedisTest() {
@@ -36,6 +44,18 @@ class MtApplicationTests {
 		user.setPassWord("edward123");
 		user.setEmail("1356148816@qq.com");
 		userService.addUser(user);
+	}
+	@Test
+	void pricesTest() {
+		MtResult result = dishService.priceRange();
+		System.out.println(result);
+
+	}
+	@Test
+	void dishNumTest() {
+		MtResult result = categoryService.dishNumByCategory();
+		System.out.println(result);
+
 	}
 
 }

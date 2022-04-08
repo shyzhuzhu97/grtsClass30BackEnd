@@ -32,9 +32,9 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public MtResult showDishByPage(int currentPage,Dish dish) {
+    public MtResult showDishByPage(int currentPage, Dish dish) {
         int startIndex = (currentPage - 1) * 5;
-        List<Dish> dishs = dishMapper.showDishByPage(startIndex,dish);
+        List<Dish> dishs = dishMapper.showDishByPage(startIndex, dish);
         int dishNum = dishMapper.dishNum(dish);
         if (dishs == null) {
             throw new MtException("查询失败，请刷新");
@@ -46,7 +46,7 @@ public class DishServiceImpl implements DishService {
     @Override
     public MtResult deleteDishById(int deleteId) {
         int count = dishMapper.deleteDishById(deleteId);
-        if(count<=0){
+        if (count <= 0) {
             throw new MtException("删除失败请重试");
         }
         return MtResult.ok();
@@ -66,22 +66,51 @@ public class DishServiceImpl implements DishService {
     public MtResult updateDish(Dish dish) {
         dish.setUpdated(new Date());
         int count = dishMapper.updateDish(dish);
-        if (count <=0){
+        if (count <= 0) {
             throw new MtException("修改失败，请重试");
 
         }
-        return MtResult.ok().data("count",count);
+        return MtResult.ok().data("count", count);
     }
+
     @Override
     public MtResult deleteIds(List<Integer> ids) {
-        if(ids.size()==0){
+        if (ids.size() == 0) {
             throw new MtException("未选择删除对象");
         }
         int count = dishMapper.deleteIds(ids);
-        if (count <=0){
+        if (count <= 0) {
             throw new MtException("删除失败，请重试");
 
         }
-        return MtResult.ok().data("count",count);
+        return MtResult.ok().data("count", count);
+    }
+
+    @Override
+    public MtResult showDishAll() {
+        List<Dish> dishs = dishMapper.showDishAll();
+        if (dishs == null) {
+            throw new MtException("查询失败，请刷新");
+
+        }
+        return MtResult.ok().data("dishs", dishs);
+    }
+
+    @Override
+    public MtResult priceRange() {
+        List<Integer> prices = dishMapper.getPrices();
+        int range[] = new int[4];
+        for (Integer price : prices) {
+            if (price > 0 && price <= 20) {
+                range[0]++;
+            }else if(price > 20 && price <= 50){
+                range[1]++;
+            }else if(price > 50 && price <= 100){
+                range[2]++;
+            }else {
+                range[3]++;
+            }
+        }
+        return MtResult.ok().data("range", range);
     }
 }

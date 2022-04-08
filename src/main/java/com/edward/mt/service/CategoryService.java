@@ -21,4 +21,6 @@ public interface CategoryService {
     MtResult deleteIds(List<Integer> ids);
 
     MtResult showCategoryAll();
+
+    MtResult dishNumByCategory();
 }

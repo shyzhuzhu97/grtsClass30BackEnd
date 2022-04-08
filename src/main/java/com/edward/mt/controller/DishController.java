@@ -21,6 +21,19 @@ public class DishController {
 
         return mtResult;
     }
+    @RequestMapping("/showDishAll")
+    public MtResult showDishAll(){
+        MtResult mtResult = dishService.showDishAll();
+
+        return mtResult;
+    }
+
+
+    @RequestMapping("/priceRange")
+    public MtResult priceRange(){
+        MtResult mtResult = dishService.priceRange();
+        return mtResult;
+    }
 
     @RequestMapping("/deleteDishById/{deleteId}")
     public MtResult addDish(@PathVariable int deleteId){

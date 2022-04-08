@@ -17,4 +17,8 @@ public interface DishService {
     MtResult updateDish(Dish dish);
 
     MtResult deleteIds(List<Integer> ids);
+
+    MtResult showDishAll();
+
+    MtResult priceRange();
 }

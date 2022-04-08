@@ -22,4 +22,14 @@ public interface DishMapper {
     int updateDish(Dish dish);
 
     int deleteIds(@Param("ids") List<Integer> ids);
+
+    List<Dish> showDishAll();
+
+    List<Integer> getPrices();
+
+    List<Integer> getParentId();
+
+    void deleteDishByParentId(int id);
+
+    void deleteParentIds(@Param("ids") List<Integer> ids);
 }
